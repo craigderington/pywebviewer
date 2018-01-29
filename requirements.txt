@@ -1,9 +1,17 @@
 Flask==0.12.2
+Flask-Mail==0.9.1
 Jinja2==2.10
 MarkupSafe==1.0
+PyPDF2==1.26.0
 Werkzeug==0.14.1
+blinker==1.4
 click==6.7
+html5lib==1.0b8
 itsdangerous==0.24
 pypiwin32==219
 pythonnet==2.3.0
 pywebview==1.8
+reportlab==3.4.0
+six==1.10.0
+webencodings==0.5.1
+xhtml2pdf==0.0.6
