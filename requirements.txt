@@ -1,0 +1,9 @@
+Flask==0.12.2
+Jinja2==2.10
+MarkupSafe==1.0
+Werkzeug==0.14.1
+click==6.7
+itsdangerous==0.24
+pypiwin32==219
+pythonnet==2.3.0
+pywebview==1.8
