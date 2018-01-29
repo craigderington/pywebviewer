@@ -152,7 +152,7 @@ def email():
     subject = 'Bellcurve - GPO HIPAA Compliance Audit Report for ' + pc['pc_name']    
     msg = Message(subject=subject, sender=config.MAIL_DEFAULT_SENDER, recipients=[email])
     msg.body = 'This email contains a PDF report.'
-    pdf = create_pdf(render_template('email.html', pc=get_pc_info()))
+    pdf = create_pdf(render_template('email.html', pc=app.get_pc_info()))
     msg.attach('report.pdf', 'application/pdf', pdf.getvalue())
     mail.send(msg)
     flash('The GPO Audit Report was successfully sent to {}'.format(email), 'info')
@@ -161,12 +161,16 @@ def email():
 
 @server.route('/email/help', methods=['GET'])
 def email_help():
-    pc = get_pc_info()
+    """
+    Create and send the email support team
+    :return Flask-Mail sender
+    """
+    pc = app.get_pc_info()
     subject = 'Bellcurve Technology - GPO HIPAA Complaince Audit Report for ' + pc['pc_name']
     receiver = 'helpme@bellcurvetechnology.com'
     msg = Message(subject=subject, sender=config.MAIL_DEFAULT_SENDER, recipients=[receiver])
     msg.body = 'This email contains a PDF report.'
-    pdf = create_pdf(render_template('email_help.html', pc=get_pc_info()))
+    pdf = create_pdf(render_template('email_help.html', pc=app.get_pc_info()))
     msg.attach('report.pdf', 'application/pdf', pdf.getvalue())
     mail.send(msg)
     flash('The GPO audit report was successfully sent to {}.'.format(receiver), 'info')
@@ -175,6 +179,10 @@ def email_help():
 
 @server.errorhandler(404)
 def page_not_found(e):
+    """
+    Handle 404 Errors
+    :return errorhandler
+    """
     server.logger.warning('An warning error occurred: {}.'.format(e))
     return render_template(
         '404.html'
@@ -183,6 +191,10 @@ def page_not_found(e):
 
 @server.errorhandler(500)
 def internal_server_error(e):
+    """
+    Handle 500 Errors
+    :return errorhandler
+    """
     server.logger.error('An app error occurred: {}.'.format(e))
     return render_template(
         '500.html'
