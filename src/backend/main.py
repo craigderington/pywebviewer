@@ -38,5 +38,4 @@ if __name__ == '__main__':
         sleep(0.1)
 
     logger.debug("Server started")
-    webview.create_window("My first pywebview application", "http://127.0.0.1:23948", min_size=(640, 480))
-
+    webview.create_window("HIPAA PC Compliance Auditor", "http://127.0.0.1:23948", min_size=(1280, 960))

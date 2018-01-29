@@ -1,138 +1,58 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <style type="text/css">
-        body {
-            color: #333;
-            font-size: 14pt;
-        }
+{% extends "_layout.html" %}
+{% block title %}PC-GPO Audit Tool by Bellcurve Technology{% endblock %}
 
-        h1 {
-            font-size: 24pt;
-        }
-
-    </style>
-</head>
-<body>
-
-<h1>My first pywebview application</h1>
-
-<button onclick="openFolder()">Open folder</button>
-<button onclick="toggleFullscreen()">Toggle fullscreen</button>
-<button onclick="doStuff()">Do stuff</button>
-<div id="open-folder-container"></div>
-<div id="stuff-container"></div>
-<div id="json-container"></div>
-
-<div style="text-align: center; margin-top: 50px;">
-    <a href="http://mbsy.co/gHVfC" target="_blank" style="outline:none;border:none;" onclick="openLink(event)">
-        <img src="https://ambassador-api.s3.amazonaws.com/uploads/marketing/11948/2016_11_29_21_53_43.png" alt="DreamHost" border="0" />
-    </a>
-</div>
-
-<script>
-    // Perform background initialization
-    doAjax("/init", "GET");
-
-    function getMethods(obj) {
-      var result = [];
-      for (var id in obj) {
-        try {
-          if (typeof(obj[id]) == "function") {
-            result.push(id + ": " + obj[id].toString());
-          }
-        } catch (err) {
-          result.push(id + ": inaccessible");
-        }
+{% block head %}
+<script type="text/javascript">
+    function close_window() {
+      if (confirm("Close App?")) {
+        close();
       }
-      return result;
-}
-
-    function openFolderHandler() {
-        if (this.responseText) {
-            var response = JSON.parse(this.responseText);
-            document.getElementById("open-folder-container").innerHTML = 'Selected directory: ' + response.directory;
-        }
-    }
-
-    function doStuffHandler(response) {
-        if (this.responseText) {
-            var response = JSON.parse(this.responseText);
-            document.getElementById("stuff-container").innerHTML = response.result;
-        }
-
-    }
-
-    function openFolder() {
-        doAjax("/choose/path", "GET", openFolderHandler);
-    }
-
-    function doStuff() {
-        doAjax("/do/stuff", "GET", doStuffHandler);
-    }
-
-    function toggleFullscreen() {
-        doAjax("/fullscreen", "GET", doStuffHandler);
-    }
-
-    function openLink(e) {
-        e.preventDefault()
-        var request = {url: e.currentTarget.href}
-        doAjax("/open-url", "POST", false, JSON.stringify(request))
-    }
-    
-    // From https://gist.github.com/dharmavir/936328
-    function getHttpRequestObject()
-    {
-        // Define and initialize as false
-        var xmlHttpRequst = false;
-        
-        // Mozilla/Safari/Non-IE
-        if (window.XMLHttpRequest) 
-        {
-            xmlHttpRequst = new XMLHttpRequest();
-        }
-        // IE
-        else if (window.ActiveXObject) 
-        {
-            xmlHttpRequst = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        return xmlHttpRequst;
-    }
-
-    // Does the AJAX call to URL specific with rest of the parameters
-    function doAjax(url, method, responseHandler, data)
-    {
-        // Set the variables
-        url = url || "";
-        method = method || "GET";
-        async = true;
-        data = data || null;
-        
-        if(url == "") {
-            alert("URL can not be null/blank");
-            return false;
-        }
-        var xmlHttpRequest = getHttpRequestObject();
-        
-        // If AJAX supported
-        if(xmlHttpRequest != false) {
-            xmlHttpRequest.open(method, url, async);
-            // Set request header (optional if GET method is used)
-            if(method == "POST")  {
-                xmlHttpRequest.setRequestHeader("Content-Type", "application/json");
-            }
-            // Assign (or define) response-handler/callback when ReadyState is changed.
-            xmlHttpRequest.onreadystatechange = responseHandler;
-            // Send data
-            xmlHttpRequest.send(data);
-        }
-        else
-        {
-            alert("Please use browser with Ajax support.!");
-        }
     }
 </script>
-</body>
-</html>
+{% endblock %}
+
+{% block content %}
+
+    <div class="well well-lg text-center">
+        <span class="pull-right" style="margin-top:-12px;">
+            <a href="#" title="Toggle Report Sections" onclick="toggleMe('sections');">
+                <i class="fa fa-gear text-primary"></i>
+            </a>
+        </span>
+        <h1>GPO Audit Report</h1>
+        <p class="lead">HIPAA Compliance Auditing Tool for Windows PC's.</p>
+        <ul class="nav">
+            <li><h3><strong>{{ pc.today }}</strong></h3></li>
+            <li><h4><strong>{{ pc.pc_platform }}</strong></h4></li>
+            <li><h4><strong>{{ pc.pc_name }}</strong></h4></li>
+        </ul>
+    </div>
+
+
+    <div class="panel panel-primary" id="sections">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-desktop"></i> GPO Report Sections</h3>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <li><a href="{{ url_for('access') }}"><i class="fa fa-tablet"></i> System Access</a></li>
+                <li><a href="{{ url_for('events') }}"><i class="fa fa-tablet"></i> Event Audit</a></li>
+                <li><a href="{{ url_for('registry') }}"><i class="fa fa-tablet"></i> Registry Values</a></li>
+                <li><a href="{{ url_for('user') }}"><i class="fa fa-tablet"></i> User Rights</a></li>
+                <li><a href="{{ url_for('version') }}"><i class="fa fa-tablet"></i> Version Info</a></li>
+            </ul>
+        </div>
+        <div class="panel-footer">
+            <i class="fa fa-info-circle"></i> Select a section to view report results...
+        </div>
+    </div>
+    
+    <!-- // toggle the raw data hidden div -->
+    <script>
+        function toggleMe(divId) {
+            $("#" + divId).toggle();
+        }
+    </script>
+
+
+{% endblock %}

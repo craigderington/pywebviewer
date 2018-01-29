@@ -1,5 +1,3 @@
-http://www.hipaaone.com/windows-10-and-hipaa/
-
 ### Windows 10 and HIPAA PC Security & Compliance Auditor
 
 ##### Windows 10 Settings
@@ -17,10 +15,13 @@ Windows 10 Privacy Settings
 The following Windows 10 features are new and cause concern for anyone responsible for maintaining HIPAA compliance in their organization:
 
 Cortana: Microsoft’s answer to Siri and Google Talk.  Cortana “learns” how each person speaks and writes by taking samples.  In addition, names, nicknames, recent calendar events and contacts are maintained.
-Data Sync: Default setting allows the operating system to sync settings and data into Microsoft’s servers. It is intended to sync passwords, website plugins, favorites, etc.; however it may lead to users’ credentials being vicariously breached by Microsoft.
-3rd party Advertisers: The Advertising ID provides a unique identifier per user allowing collections of data to be shared with 3rd party advertisers.  This may help fund the “free” upgrade to Windows 10 from previous versions, and is provided to help provide more effective targeted ads when using 3rd party applications.  Turning this off will not block ads from appearing, but they may not be as targeted, as your users will remain more anonymous with this feature turned off.
-Bitlocker: Windows 10 will automatically backup your encryption key to OneDrive, unless you are using Active Directory Group Policy to manage this element.  Also, if you are using Bitlocker or planning to use Bitlocker, ensure you use the TPM+PIN option or turn off hibernation/sleep support to avoid having to report a breach if a Bitlocker-encrypted laptop is lost or stolen.
-Telemetry:  Those familiar with the Windows Pop-up sending diagnostic information after a program crashes to Microsoft for product improvement will want to know about Telemetry.  Telemetry is an enhanced diagnostics and tracking service which sends additional information to Microsoft for new features such as per-application updates, Windows 10 upgrade offers, etc.  This is a well-documented How-To disable Telemetry from our friends at Winaero.
+
+- Data Sync: Default setting allows the operating system to sync settings and data into Microsoft’s servers. It is intended to sync passwords, website plugins, favorites, etc.; however it may lead to users’ credentials being vicariously breached by Microsoft.
+
+- 3rd party Advertisers: The Advertising ID provides a unique identifier per user allowing collections of data to be shared with 3rd party advertisers.  This may help fund the “free” upgrade to Windows 10 from previous versions, and is provided to help provide more effective targeted ads when using 3rd party applications.  Turning this off will not block ads from appearing, but they may not be as targeted, as your users will remain more anonymous with this feature turned off.
+- Bitlocker: Windows 10 will automatically backup your encryption key to OneDrive, unless you are using Active Directory Group Policy to manage this element.  Also, if you are using Bitlocker or planning to use Bitlocker, ensure you use the TPM+PIN option or turn off hibernation/sleep support to avoid having to report a breach if a Bitlocker-encrypted laptop is lost or stolen.
+- Telemetry:  Those familiar with the Windows Pop-up sending diagnostic information after a program crashes to Microsoft for product improvement will want to know about Telemetry.  Telemetry is an enhanced diagnostics and tracking service which sends additional information to Microsoft for new features such as per-application updates, Windows 10 upgrade offers, etc.  This is a well-documented How-To disable Telemetry from our friends at Winaero.
+
 Although it is still early to tell if specific HIPAA Privacy considerations are violated with Windows 10; HIPAA Privacy, at a high level, ensures individuals have the minimum protections which may be violated. Therefore depending on whether ePHI is released as these Windows 10 features are used; we believe the violation of the following laws may lead to HIPAA non-compliance:
 
 - Access to the health record – see patient rights §164.522, §164.524 §164.526
