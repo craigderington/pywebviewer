@@ -6,15 +6,18 @@ import app
 from time import sleep
 from server import run_server
 from pyparser import convert_file
+import config
 
 server_lock = Lock()
 logger = logging.getLogger(__name__)
-infile = 'C:\\Security\\FY2018\\SecurityContoso.inf'
-outfile = 'C:\\Security\\FY2018\\group-policy-results.txt'
 
 
 def url_ok(url, port):
-    # Use httplib on Python 2
+    """
+    Function to check the status of the server
+    before launching the pywebviewer
+    :return conn
+    """
     try:
         from http.client import HTTPConnection
     except ImportError:
@@ -35,11 +38,15 @@ if __name__ == '__main__':
     t.daemon = True
     t.start()
     logger.debug("Checking server")
-    app.create_gpo_file()
-    convert_file(infile, outfile)
     
+    # create our group policy document and convert to utf-8
+    app.create_gpo_file()
+    convert_file(config.INFILE, config.OUTFILE)
+    
+    # check to make sure the server is running before opening the webviewer
     while not url_ok("127.0.0.1", 23948):
         sleep(0.1)
 
+    # log the server start and webview create window
     logger.debug("Server started")
     webview.create_window("HIPAA PC Compliance Auditor", "http://127.0.0.1:23948", min_size=(1280, 920))
