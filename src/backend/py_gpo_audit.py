@@ -5,7 +5,7 @@ import errno
 import time
 import run_as_admin
 
-local_path = 'C:\\Security\\FY17\\'
+local_path = 'C:\\Security\\FY2018\\'
 
 
 def read_gpo(filename):

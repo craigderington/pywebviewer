@@ -7,6 +7,7 @@ import platform
 from datetime import datetime
 import traceback
 import types
+from pyparser import convert_file, read_gpo
 
 
 def isUserAdmin():
@@ -62,10 +63,12 @@ def runAsAdmin(cmdLine=None, wait=True):
     else:
         rc = None
 
+
 def initialize():
-    """Initialize the application
-    :return True
     """
+    Initialize the application
+    :return True
+    """    
     return True
 
 
@@ -77,12 +80,12 @@ def get_response():
     response = "This is the response from my Python backend"
     return response
 
+
 def get_pc_info():
     """
     Get the PC data for the templates 
     :return dict 'pc_info'
     """
-
     pc_info = {
         'today': datetime.now().strftime('%x'),
         'pc_platform': platform.platform(),
@@ -100,13 +103,7 @@ def generate_gpo_file():
     :return rc int
     """
     rc = 0
-    if not isUserAdmin():
-        print('You are not an admin! {} {}'.format(os.getpid(), sys.argv))
-        rc = runAsAdmin()
-    else:
-        print('You are now an admin! {} {}'.format(os.getpid(), sys.argv))        
-        os.system('secedit /export /cfg C:\Security\FY17\SecurityContoso.inf /areas SECURITYPOLICY GROUP_MGMT USER_RIGHTS /log C:\Security\FY17\securityexport.log')
-    
+    os.system('secedit /export /cfg C:\Security\FY2018\SecurityContoso.inf /areas SECURITYPOLICY GROUP_MGMT USER_RIGHTS /log C:\Security\FY2018\securityexport.log')
     return rc
 
 
@@ -115,7 +112,7 @@ def create_gpo_file():
     Generate the GPO data file
     :return: none
     """
-    local_path = 'C:\\Security\\FY2017\\'
+    local_path = 'C:\\Security\\FY2018\\'
 
     if not os.path.exists(os.path.dirname(local_path)):
         try:
@@ -131,9 +128,9 @@ def create_gpo_file():
 def get_gpo_results():
 
     try:
-        local_path = 'C:\\Security\\FY2017\\'
+        local_path = 'C:\\Security\\FY2018\\'
         filename = local_path + '\group-policy-results.txt'
-        # parser.read_gpo(filename)
+        read_gpo(filename)
     except IOError as err:
         print(err)
     

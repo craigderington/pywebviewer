@@ -1,8 +1,8 @@
-import config
 import os
 from flask import Flask, url_for, render_template, jsonify, request, redirect, make_response, flash
 from flask_mail import Mail, Message
 from pdfs import create_pdf
+import config
 import webview
 import webbrowser
 import app
@@ -21,7 +21,7 @@ server.config.update(dict(
     MAIL_PORT=587,
     MAIL_USE_TLS=True,
     MAIL_USERNAME='compliant@bellcurvetechnology.com',
-    MAIL_PASSWORD='1de56TG99CFdp',
+    MAIL_PASSWORD='2112Rl#e',
     MAIL_DEFAULT_SENDER='Compliant Devices <compliant@bellcurvetechnology.com>'
 ))
 
@@ -30,18 +30,18 @@ mail = Mail(server)
 
 @server.after_request
 def add_header(response):
-    """ Modify the response headers
+    """ 
+    Modify the response headers
     :return response
     """
-    response.headers['Cache-Control'] = 'no-cache, no-store, no-transform'
-    # response.headers['Content-Type'] = 'application/json'
+    response.headers['Cache-Control'] = 'no-cache, no-store, no-transform'    
     return response
 
 
 @server.route("/init")
 def initialize():
     """
-    initialize app asynchronously.
+    Initialize app asynchronously.
     :return: app
     """
     can_start = app.initialize()
