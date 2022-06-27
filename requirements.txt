@@ -11,7 +11,7 @@ itsdangerous==0.24
 pypiwin32==219
 pythonnet==2.3.0
 pywebview==1.8
-reportlab==3.4.0
+reportlab==3.5.55
 six==1.10.0
 webencodings==0.5.1
 xhtml2pdf==0.0.6
